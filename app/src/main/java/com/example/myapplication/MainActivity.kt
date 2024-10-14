@@ -133,12 +133,17 @@ enum class colorClase(val rgb: Int){
     ROJO(1), VERDE(2), MAGENTA(3), AZUL(4)
 }
 
+data class juego(var rondas: Int, var record: Int)
+
 @Composable
 fun Botones(modifier: Modifier = Modifier){
     var rondas = remember {
         mutableStateOf(1)
     }
 
+    var record by remember {
+        mutableStateOf(value = 0)
+    }
     var listaMutable by remember {
         mutableStateOf(mutableListOf<Int>())
     }
@@ -146,98 +151,103 @@ fun Botones(modifier: Modifier = Modifier){
     var listaMutableR by remember{
         mutableStateOf(mutableListOf<Int>())
     }
-
-    var indice = 3
-    for (i in 0..indice){
-        listaMutableR[i] = Random.nextInt(colorClase.ROJO.rgb, colorClase.AZUL.rgb+1)
+    var texto by remember {
+        mutableStateOf(value = "")
     }
+
+    fun chequeo() {
+
+    }
+
+
+
     var name by remember {mutableStateOf("")}
     Box(modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center) {
 
     Column (verticalArrangement = Arrangement.Center){
         Text(text = "Ronda " + rondas.value.toString()
-        ,modifier = Modifier.padding(bottom = 16.dp)
+        ,modifier = Modifier
+                .padding(bottom = 16.dp)
                 .align(Alignment.CenterHorizontally))
 
     Row {
         Button(onClick = { name = "rojo"
             listaMutable.add(element = colorClase.ROJO.rgb)
-            Log.i("Rojo","Lista: " + listaMutable.toString())},
+            Log.i("Rojo","Lista: " + listaMutable.toString())
+            texto = colorClase.ROJO.name
+            chequeo()},
             colors = ButtonDefaults.buttonColors(
                 containerColor = Color.Red
             ),
             modifier = Modifier
-
+                .padding(2.dp)
         ) {
-            Text(text = "Boton1")
+          //  Text(text = "Boton1")
         }
         Button(onClick = { name = "magenta"
             listaMutable.add(element = colorClase.MAGENTA.rgb)
-            Log.e("Magenta","Lista: " + listaMutable.toString())},
+            Log.e("Magenta","Lista: " + listaMutable.toString())
+            texto = colorClase.MAGENTA.name
+            chequeo()},
             colors = ButtonDefaults.buttonColors(
                 containerColor = Color.Magenta
             ),
             modifier = Modifier
-
+                .padding(2.dp)
 
         ) {
-            Text(text = "Boton2")
+           // Text(text = "Boton2")
         }
     }
 
     Row {
         Button(onClick = { name = "verde"
             listaMutable.add(element = colorClase.VERDE.rgb)
-            Log.d("Verde","Lista: " + listaMutable.toString())},
+            Log.d("Verde","Lista: " + listaMutable.toString())
+            texto = colorClase.VERDE.name
+            chequeo()},
             colors = ButtonDefaults.buttonColors(
                 containerColor = Color.Green
             ),
             modifier = Modifier
-
+                .padding(2.dp)
         ) {
-            Text(text = "Boton3")
+           // Text(text = "Boton3")
         }
         Button(onClick = {name = "Azul"
             listaMutable.add(element = colorClase.AZUL.rgb)
-            Log.e("Azul","Lista: " + listaMutable.toString())},
+            Log.e("Azul","Lista: " + listaMutable.toString())
+            texto = colorClase.AZUL.name
+            chequeo()},
             colors = ButtonDefaults.buttonColors(
                 containerColor = Color.Blue
             ),
             modifier = Modifier
-
+                .padding(2.dp)
         ) {
-            Text(text = "Boton4")
+            //Text(text = "Boton4")
 
         }
 
     }
-
+        Column (verticalArrangement = Arrangement.Center,
+            modifier = Modifier
+                .align(Alignment.CenterHorizontally)
+                .padding(20.dp)) {
+            Text(text = texto)
+        }
     }
+
     }
 
 }
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Column {
-        Text(
-            text = "Hello $name!",
-            fontSize = 38.sp,
-            // lo separamos del borde superior
-            modifier = Modifier.padding(vertical = 150.dp)
-        )
-    }
-}
+
 
 @Preview(showBackground = true)
 @Composable
 fun BirthdayCardPreview() {
 
-//    HappyBirthdayTheme {
-//        GreetingText(message = "Happy Birthday Sam!", from = "From Yoel ")
-//    }
-//    //GreetingText(message = "", from = "")
-    //Login()
     Botones()
 }
