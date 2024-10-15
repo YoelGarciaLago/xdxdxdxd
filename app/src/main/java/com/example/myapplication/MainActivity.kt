@@ -145,7 +145,7 @@ data class juego(var rondas: Int = 1, var record: Int = 1 , var nColores: Int = 
 @Composable
 fun Botones(modifier: Modifier = Modifier){
     var rondas = remember {
-        mutableStateOf(1)
+        mutableStateOf(juego().rondas)
     }
 
     var listaMutable by remember {
@@ -160,18 +160,19 @@ fun Botones(modifier: Modifier = Modifier){
     }
 
 
-//    fun darColores(){
-//        for (i in 0<..juegoVariable.nColores)
-//        listaMutableR.add(colorClase.values().random().rgb)
-//        Log.i("ListaR", listaMutableR.toString())
-//    }
+    fun darColores(){
+        for (i in 0..juego().nColores){
+            listaMutableR.add(colorClase.values().random().rgb)
+        }
+        Log.i("ListaR", listaMutableR.toString())
+    }
 
     fun chequeo() {
 
     }
 
 LaunchedEffect (Unit){
-    //darColores()
+    darColores()
 }
 
     var name by remember {mutableStateOf("")}
