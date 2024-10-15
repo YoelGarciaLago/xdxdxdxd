@@ -3,6 +3,7 @@ package com.example.myapplication
 import android.os.Bundle
 import android.text.style.BackgroundColorSpan
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -28,6 +29,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -41,6 +43,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.provider.FontsContractCompat.Columns
 import com.example.myapplication.ui.theme.HappyBirthdayTheme
+import kotlin.math.absoluteValue
 import kotlin.random.Random
 
 class MainActivity : ComponentActivity() {
@@ -59,6 +62,8 @@ class MainActivity : ComponentActivity() {
 //                        from = "From Emma",
 //                        modifier = Modifier.padding(8.dp)
 //                    )
+                    val toast = Toast.makeText(this,"Hola!",Toast.LENGTH_LONG)
+                    toast.show()
                     Botones()
                    // Login()
                 }
@@ -133,7 +138,9 @@ enum class colorClase(val rgb: Int){
     ROJO(1), VERDE(2), MAGENTA(3), AZUL(4)
 }
 
-data class juego(var rondas: Int, var record: Int)
+data class juego(var rondas: Int = 1, var record: Int = 1 , var nColores: Int = 3){
+
+}
 
 @Composable
 fun Botones(modifier: Modifier = Modifier){
@@ -141,9 +148,6 @@ fun Botones(modifier: Modifier = Modifier){
         mutableStateOf(1)
     }
 
-    var record by remember {
-        mutableStateOf(value = 0)
-    }
     var listaMutable by remember {
         mutableStateOf(mutableListOf<Int>())
     }
@@ -155,18 +159,27 @@ fun Botones(modifier: Modifier = Modifier){
         mutableStateOf(value = "")
     }
 
+
+//    fun darColores(){
+//        for (i in 0<..juegoVariable.nColores)
+//        listaMutableR.add(colorClase.values().random().rgb)
+//        Log.i("ListaR", listaMutableR.toString())
+//    }
+
     fun chequeo() {
 
     }
 
-
+LaunchedEffect (Unit){
+    //darColores()
+}
 
     var name by remember {mutableStateOf("")}
     Box(modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center) {
 
     Column (verticalArrangement = Arrangement.Center){
-        Text(text = "Ronda " + rondas.value.toString()
+        Text(text = "Ronda: " + rondas.value.toString()
         ,modifier = Modifier
                 .padding(bottom = 16.dp)
                 .align(Alignment.CenterHorizontally))
@@ -175,7 +188,7 @@ fun Botones(modifier: Modifier = Modifier){
         Button(onClick = { name = "rojo"
             listaMutable.add(element = colorClase.ROJO.rgb)
             Log.i("Rojo","Lista: " + listaMutable.toString())
-            texto = colorClase.ROJO.name
+            //texto = colorClase.ROJO.name
             chequeo()},
             colors = ButtonDefaults.buttonColors(
                 containerColor = Color.Red
@@ -188,7 +201,7 @@ fun Botones(modifier: Modifier = Modifier){
         Button(onClick = { name = "magenta"
             listaMutable.add(element = colorClase.MAGENTA.rgb)
             Log.e("Magenta","Lista: " + listaMutable.toString())
-            texto = colorClase.MAGENTA.name
+            //texto = colorClase.MAGENTA.name
             chequeo()},
             colors = ButtonDefaults.buttonColors(
                 containerColor = Color.Magenta
@@ -205,7 +218,7 @@ fun Botones(modifier: Modifier = Modifier){
         Button(onClick = { name = "verde"
             listaMutable.add(element = colorClase.VERDE.rgb)
             Log.d("Verde","Lista: " + listaMutable.toString())
-            texto = colorClase.VERDE.name
+            //texto = colorClase.VERDE.name
             chequeo()},
             colors = ButtonDefaults.buttonColors(
                 containerColor = Color.Green
@@ -218,7 +231,7 @@ fun Botones(modifier: Modifier = Modifier){
         Button(onClick = {name = "Azul"
             listaMutable.add(element = colorClase.AZUL.rgb)
             Log.e("Azul","Lista: " + listaMutable.toString())
-            texto = colorClase.AZUL.name
+            //texto = colorClase.AZUL.name
             chequeo()},
             colors = ButtonDefaults.buttonColors(
                 containerColor = Color.Blue
