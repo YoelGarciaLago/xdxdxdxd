@@ -14,8 +14,10 @@ object Datos {
  */
 
 enum class Colores(val color: Color, val txt: String) {
-    CLASE_ROJO(color = Color.Red, txt = "roxo"),
-    CLASE_VERDE(color = Color.Green, txt = "verde"),
-    CLASE_AZUL(color = Color.Blue, txt = "azul"),
-    CLASE_AMARILLO(color = Color.Yellow, txt = "melo")
+    ROJO(color = Color.Red, txt = "roxo"),
+    VERDE(color = Color.Green, txt = "verde"),
+    AZUL(color = Color.Blue, txt = "azul"),
+    AMARILLO(color = Color.Yellow, txt = "melo")
 }
+
+//data class juego()
